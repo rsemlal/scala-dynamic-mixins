@@ -9,6 +9,6 @@ package net.rsemlal.dynamicmixins
  */
 trait DynamicAny {
   def isDynamicMixin: Boolean
-  def isDynamicInstanceOf[T](implicit mT: Manifest[T]): Boolean
-  def asDynamicInstanceOf[T]: T
+  def isDynamicInstanceOf[T : Manifest]: Boolean
+  def asDynamicInstanceOf[T : Manifest]: T
 }

@@ -10,11 +10,11 @@ class DynamicMixin[+L, +R](val left: L, val right: R) extends MixableDynamicAny[
     left.isDynamicInstanceOf[T] || right.isDynamicInstanceOf
   }
 
-  def asDynamicInstanceOf[T] = {
-    try {
+  def asDynamicInstanceOf[T : Manifest] = {
+    if(left.isDynamicInstanceOf[T]) {
       left.asDynamicInstanceOf[T]
-    } catch {
-      case _ => right.asDynamicInstanceOf[T]
+    } else {
+      right.asDynamicInstanceOf[T]
     }
   }
 }

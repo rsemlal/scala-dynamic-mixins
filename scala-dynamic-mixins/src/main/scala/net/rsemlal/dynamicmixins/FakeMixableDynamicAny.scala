@@ -14,7 +14,7 @@ class FakeMixableDynamicAny[+L](val me: L) extends MixableDynamicAny[L] {
 
   def isDynamicMixin = false
 
-  def isDynamicInstanceOf[T](implicit mT: Manifest[T]) = mT.erasure.isInstance(me)
+  def isDynamicInstanceOf[T: Manifest] = manifest[T].erasure.isInstance(me)
 
-  def asDynamicInstanceOf[T] = me.asInstanceOf[T]
+  def asDynamicInstanceOf[T: Manifest] = me.asInstanceOf[T]
 }
