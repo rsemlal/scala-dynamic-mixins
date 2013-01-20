@@ -3,22 +3,16 @@ package net.rsemlal.dynamicmixins
 import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
 
-class DynamicMixinTest extends FunSpec with ShouldMatchers {
-  trait V {
-    val value = this.getClass.getCanonicalName
-  }
-  class A extends V {
-    val attr_a = "a"
-  }
-  class B extends V {
-    val attr_b = "b"
-  }
-  class C extends V {
-    val attr_c = "c"
-  }
+import TestData.BeforeA
+import TestData.BeforeB
+import TestData.A
+import TestData.B
+import TestData.C
+import TestData.V
+import TestData.a0
+import TestData.b0
 
-  val a0 = new A()
-  val b0 = new B()
+class DynamicMixinTest extends FunSpec with ShouldMatchers {
   val ab0 = new DynamicMixin(a0, b0)
 
   describe(classOf[DynamicMixin[_, _]].getSimpleName) {
@@ -40,11 +34,19 @@ class DynamicMixinTest extends FunSpec with ShouldMatchers {
       ab0.isDynamicInstanceOf[A] should be === true
     }
 
+    it("should return true with super type of left type") {
+      ab0.isDynamicInstanceOf[BeforeA] should be === true
+    }
+
     it("should return true with right type") {
       ab0.isDynamicInstanceOf[B] should be === true
     }
 
-    it("should return true with super type") {
+    it("should return true with super type of right type") {
+      ab0.isDynamicInstanceOf[BeforeB] should be === true
+    }
+
+    it("should return true with common super type") {
       ab0.isDynamicInstanceOf[V] should be === true
     }
 
@@ -58,8 +60,16 @@ class DynamicMixinTest extends FunSpec with ShouldMatchers {
       ab0.asDynamicInstanceOf[A] should be === a0
     }
 
+    it("should return left instance with super type of left type") {
+      ab0.asDynamicInstanceOf[BeforeA] should be === a0
+    }
+
     it("should return right instance with right type") {
       ab0.asDynamicInstanceOf[B] should be === b0
+    }
+
+     it("should return left instance with super type of right type") {
+      ab0.asDynamicInstanceOf[BeforeB] should be === b0
     }
 
     it("should return left instance with super type") {

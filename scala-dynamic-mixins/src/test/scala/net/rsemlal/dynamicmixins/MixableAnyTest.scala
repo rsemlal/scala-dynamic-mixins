@@ -2,21 +2,14 @@ package net.rsemlal.dynamicmixins
 
 import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
+import TestData.A
+import TestData.B
+import TestData.C
+import TestData.V
+import TestData.a0
+import TestData.b0
 
 class MixableAnyTest extends FunSpec with ShouldMatchers {
-  trait V {
-    val value = this.getClass.getCanonicalName
-  }
-  class A extends V {
-    val attr_a = "a"
-  }
-  class B extends V {
-    val attr_b = "b"
-  }
-
-  val a0 = new A()
-  val b0 = new B()
-
   val ma0 = new MixableAny[A] {
     val me = a0
   }

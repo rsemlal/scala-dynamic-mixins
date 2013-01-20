@@ -4,20 +4,15 @@ import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
+import TestData.A
+import TestData.B
+import TestData.C
+import TestData.V
+import TestData.a0
+import TestData.b0
 
 @RunWith(classOf[JUnitRunner])
 class FakeMixableDynamicAnyTest extends FunSpec with ShouldMatchers {
-  trait V {
-    val value = this.getClass.getCanonicalName
-  }
-  class A extends V {
-    val attr_a = "a"
-  }
-  class B extends V {
-    val attr_b = "b"
-  }
-
-  val a0 = new A()
   val fa0 = new FakeMixableDynamicAny(a0)
 
   describe(classOf[FakeMixableDynamicAny[_]].getSimpleName) {
