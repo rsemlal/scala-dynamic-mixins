@@ -5,7 +5,7 @@ object Implicits {
 	  if(obj.isInstanceOf[DynamicAny]) {
 	    obj.asInstanceOf[MixableDynamicAny[L]]
 	  } else {
-	    new FakeDynamicAny(obj)
+	    new FakeMixableDynamicAny(obj)
 	  }
 	}
 }

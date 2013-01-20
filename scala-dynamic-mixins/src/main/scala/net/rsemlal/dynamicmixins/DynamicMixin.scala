@@ -6,7 +6,7 @@ class DynamicMixin[+L, +R](val left: L, val right: R) extends MixableDynamicAny[
 
   def isDynamicMixin = true
 
-  def isDynamicInstanceOf[T] = {
+  def isDynamicInstanceOf[T](implicit mT: Manifest[T]) = {
     left.isDynamicInstanceOf[T] || right.isDynamicInstanceOf
   }
 
